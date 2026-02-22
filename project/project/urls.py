@@ -21,5 +21,7 @@ from tickets import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('no_rest/', views.no_rest_module),
-    path('from_mod/' , views.from_module)
+    path('from_mod/' , views.from_module),
+    path('FBV_List/' , views.FBV_List),
+    path('FBV_pk/<int:pk>' , views.FBV_pk),
 ]
