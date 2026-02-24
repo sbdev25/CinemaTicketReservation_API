@@ -116,4 +116,24 @@ class CBV_pk(APIView) :
         guest =  self.getObject(pk)
         guest.delete() 
         return Response(status = status.HTTP_204_NO_CONTENT) 
-#
+    
+#6mixins
+#6.1 mixins list
+class mixins_List(mixins.ListModelMixin,mixins.CreatModelMixin , generic.GenericAPIView) : 
+    queryset = Guest.objects.all()
+    serializer_class = GuestSerializer
+
+    def get(self , request):
+        return self.List(request)
+    def post(self , request) : 
+        return self.create(request)
+class mixins_pk(mixins.RetrieveModelMixin , mixins.UpdateModelMixin , mixins.DestroyModelMixin):
+    queryset =  Guest.objects.all()
+    serializer_class = GuestSerializer
+
+    def get(self , request , pk ) : 
+        return self.retrieve( request  )
+    def put(self , request , pk ) : 
+        return self.update( request  )
+    def delete(self , request , pk ) : 
+        return self.destroy( request  )
