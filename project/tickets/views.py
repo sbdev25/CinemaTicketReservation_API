@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from rest_framework import status 
 from rest_framework.views import APIView
 from django.http import Http404
+from rest_framework import mixins
+from rest_framework import generics
 
 # Create your views here.
 
@@ -119,15 +121,15 @@ class CBV_pk(APIView) :
     
 #6mixins
 #6.1 mixins list
-class mixins_List(mixins.ListModelMixin,mixins.CreatModelMixin , generic.GenericAPIView) : 
+class mixins_List(mixins.ListModelMixin,mixins.CreateModelMixin , generics.GenericAPIView) : 
     queryset = Guest.objects.all()
     serializer_class = GuestSerializer
 
     def get(self , request):
-        return self.List(request)
+        return self.list(request)
     def post(self , request) : 
         return self.create(request)
-class mixins_pk(mixins.RetrieveModelMixin , mixins.UpdateModelMixin , mixins.DestroyModelMixin):
+class mixins_pk(mixins.RetrieveModelMixin , mixins.UpdateModelMixin , mixins.DestroyModelMixin , generics.GenericAPIView):
     queryset =  Guest.objects.all()
     serializer_class = GuestSerializer
 
@@ -137,3 +139,14 @@ class mixins_pk(mixins.RetrieveModelMixin , mixins.UpdateModelMixin , mixins.Des
         return self.update( request  )
     def delete(self , request , pk ) : 
         return self.destroy( request  )
+    
+
+#generics
+#6.1 get and post 
+class gen_list(generics.ListCreateAPIView) : 
+        queryset = Guest.objects.all()
+        serializer_class = GuestSerializer
+#6.2 get put delete 
+class gen_pk(generics.RetrieveUpdateDestroyAPIView) : 
+        queryset = Guest.objects.all()
+        serializer_class = GuestSerializer

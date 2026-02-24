@@ -25,5 +25,9 @@ urlpatterns = [
     path('FBV_List/' , views.FBV_List),
     path('FBV_pk/<int:pk>' , views.FBV_pk),
     path('CBV_List/' , views.CBV_List.as_view()),
-    path('CBV_pk/<int:pk>' , views.CBV_pk.as_view())
+    path('CBV_pk/<int:pk>' , views.CBV_pk.as_view()) , 
+    path('rest/mixins_LC/' , views.mixins_List.as_view()) , 
+    path('rest/mixins_pk/<int:pk>' , views.mixins_pk.as_view()),
+    path('rest/generics_LC/', views.gen_list.as_view() ), 
+    path('rest/generics_pk/<int:pk>', views.gen_pk.as_view() ),
 ]
