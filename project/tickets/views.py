@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import mixins
 from rest_framework import generics
+from rest_framework import viewsets
 
 # Create your views here.
 
@@ -150,3 +151,16 @@ class gen_list(generics.ListCreateAPIView) :
 class gen_pk(generics.RetrieveUpdateDestroyAPIView) : 
         queryset = Guest.objects.all()
         serializer_class = GuestSerializer
+
+class viewsets_guest(viewsets.ModelViewSet) : 
+    queryset = Guest.objects.all()
+    serializer_class = GuestSerializer
+
+class viewsets_Movie(viewsets.ModelViewSet) : 
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+    filter
+
+class viewsets_Reserv(viewsets.ModelViewSet) : 
+    queryset = Reservation.objects.all()
+    serializer_class = ReservationSerializer
