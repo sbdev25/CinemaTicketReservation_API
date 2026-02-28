@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import mixins
 from rest_framework import generics
-from rest_framework import viewsets
+from rest_framework import viewsets , filters
 
 # Create your views here.
 
@@ -159,8 +159,37 @@ class viewsets_guest(viewsets.ModelViewSet) :
 class viewsets_Movie(viewsets.ModelViewSet) : 
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
-    filter
+    filter_backend = [filters.SearchFilter]
+    search_fields = ['movie']
 
 class viewsets_Reserv(viewsets.ModelViewSet) : 
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
+
+
+#find movie 
+
+@api_view(['GET'])
+def find_movie(request):
+    hall = request.query_params.get('hall')
+    movie = request.query_params.get('movie')
+
+    if not hall or not movie:
+        return Response(
+            {'error': 'hall and movie parameters are required'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    movies = Movie.objects.filter(hall=hall, movie=movie)
+    serializer = MovieSerializer(movies, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def find_movie(request):
+    hall = request.query_params.get('hall')
+    movie = request.query_params.get('Movie')  
+    
+    movies = Movie.objects.filter(hall=hall, Movie=movie)
+    serializer = MovieSerializer(movies, many=True)
+    return Response(serializer.data)
+@api_view(['POST'])

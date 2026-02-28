@@ -40,4 +40,7 @@ urlpatterns = [
     #viewsets path 
     path('rest/viewsets/' , include(router.urls)),
 
+    #8find movie 
+    path('fbv/movie/' , views.find_movie),
+
 ]
